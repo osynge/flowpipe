@@ -1,5 +1,5 @@
-pytest==3.0.3
-pytest-cov==2.5.1
+pytest
+pytest-cov
 mock
 coverage
 codacy-coverage
