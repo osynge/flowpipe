@@ -9,4 +9,4 @@ jobs:
     
     steps:
     - name: Sphinx Build
-      uses: ammaraskar/sphinx-action@0.1
+      uses: ammaraskar/sphinx-action@0.1 ./docs
