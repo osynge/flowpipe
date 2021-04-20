@@ -320,7 +320,7 @@ class Graph(object):
                 not_submitted = []
                 for node in nodes_to_evaluate:
                     if not any(n.is_dirty for n in node.upstream_nodes):
-                        with opentracing.tracer.start_active_span() as scope:
+                        with opentracing.tracer.start_active_span('parent') as scope:
                             fut = executor.submit(node_runner, node, scope.span)
                         running_futures[node.name] = fut
                     else:
