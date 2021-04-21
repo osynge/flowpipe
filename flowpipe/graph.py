@@ -307,8 +307,7 @@ class Graph(object):
             """Run a node's evaluate method and return the node."""
             with opentracing.tracer.scope_manager.activate(parent_span, finish_on_close=True):
                 with opentracing.tracer.start_active_span(f'evaluating node:{node.name}') as scope:
-                    with opentracing.tracer.scope_manager.activate(scope.span, True):
-                        node.evaluate()
+                    node.evaluate()
             return node
 
         running_futures = {}
