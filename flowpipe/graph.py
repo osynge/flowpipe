@@ -306,7 +306,7 @@ class Graph(object):
         def node_runner(node, parent_span):
             """Run a node's evaluate method and return the node."""
             with opentracing.tracer.scope_manager.activate(parent_span, finish_on_close=True):
-                with opentracing.tracer.start_active_span('node in thread') as scope:
+                with opentracing.tracer.start_active_span(f'evaluating node:{node.name}') as scope:
                     with opentracing.tracer.scope_manager.activate(scope.span, True):
                         node.evaluate()
             return node
@@ -321,7 +321,7 @@ class Graph(object):
                 not_submitted = []
                 for node in nodes_to_evaluate:
                     if not any(n.is_dirty for n in node.upstream_nodes):
-                        with opentracing.tracer.start_active_span('node thread submit') as scope:
+                        with opentracing.tracer.start_active_span(f'thread submit node:{node.name}') as scope:
                             fut = executor.submit(node_runner, node, scope.span)
                         running_futures[node.name] = fut
                     else:
